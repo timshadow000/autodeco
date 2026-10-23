@@ -185,7 +185,7 @@ class $modify(AutoDecorPause, EditorPauseLayer) {
 
         std::vector<GameObject*> targets;
         CCObject* o;
-        CCARRAY_FOREACH(src, o) {
+        for (auto o : geode::cocos::CCArrayExt<Тип>(src)) {
             if (auto g = typeinfo_cast<GameObject*>(o)) targets.push_back(g);
         }
 
