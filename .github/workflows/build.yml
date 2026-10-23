@@ -14,11 +14,6 @@ jobs:
         config:
           - name: Windows
             os: windows-latest
-          - name: macOS
-            os: macos-latest
-          - name: Android32
-            os: ubuntu-latest
-            target: Android32
           - name: Android64
             os: ubuntu-latest
             target: Android64
@@ -32,8 +27,15 @@ jobs:
       - name: Build the mod
         uses: geode-sdk/build-geode-mod@main
         with:
+          # Указываем репозиторий и ветку биндингов (если требуется)
+          bindings: geode-sdk/bindings
+          bindings-ref: main
+          # Включаем режим объединения для последующей сборки в один файл
           combine: true
+          # Указываем target для текущей платформы из матрицы
           target: ${{ matrix.config.target }}
+          # Используем nightly SDK (если нужен latest, замените на 'latest' или удалите строку)
+          sdk: nightly
 
   package:
     name: Package builds
@@ -41,10 +43,12 @@ jobs:
     needs: ['build']
 
     steps:
-      - uses: geode-sdk/build-geode-mod/combine@main
+      - name: Combine builds
+        uses: geode-sdk/build-geode-mod/combine@main
         id: build
 
-      - uses: actions/upload-artifact@v4
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
         with:
           name: Build Output
           path: ${{ steps.build.outputs.build-output }}
