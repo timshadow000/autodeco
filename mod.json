@@ -1,0 +1,43 @@
+{
+  "geode": "4.0.0",
+  "gd": {
+    "win": "2.2074",
+    "android": "2.2074",
+    "mac": "2.2074",
+    "ios": "2.2074"
+  },
+  "id": "timshadow.autodecor",
+  "name": "Auto Decor",
+  "version": "v1.1.0",
+  "developer": "Timshadow",
+  "description": "Auto-decorates your level in the editor with 40 ready-made designs (modern, techno, beach and more). No text objects.",
+  "settings": {
+    "density-mult": {
+      "type": "int",
+      "name": "Density multiplier (%)",
+      "default": 100,
+      "min": 10,
+      "max": 200,
+      "control": { "slider": true }
+    },
+    "scale-mult": {
+      "type": "float",
+      "name": "Size multiplier",
+      "default": 1.0,
+      "min": 0.2,
+      "max": 3.0
+    },
+    "color-channel": {
+      "type": "int",
+      "name": "Color channel for all decor (0 = don't change)",
+      "default": 0,
+      "min": 0,
+      "max": 999
+    },
+    "extra-ids": {
+      "type": "string",
+      "name": "Custom decor IDs (comma separated), added to every design",
+      "default": ""
+    }
+  }
+}
