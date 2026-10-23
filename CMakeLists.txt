@@ -1,21 +1,22 @@
 cmake_minimum_required(VERSION 3.21)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
-set(CMAKE_CXX_VISIBILITY_PRESET hidden)
-
-if ("${CMAKE_SYSTEM_NAME}" STREQUAL "iOS" OR IOS)
-    set(CMAKE_OSX_ARCHITECTURES "arm64")
-else()
-    set(CMAKE_OSX_ARCHITECTURES "arm64;x86_64")
-endif()
 
 project(AutoDecor VERSION 1.0.0)
 
-add_library(${PROJECT_NAME} SHARED src/main.cpp)
-
+# Проверка на наличие SDK (нужна для GitHub Actions)
 if (NOT DEFINED ENV{GEODE_SDK})
     message(FATAL_ERROR "Unable to find Geode SDK! Set GEODE_SDK env variable.")
 endif()
 
+# Подключение Geode
 add_subdirectory($ENV{GEODE_SDK} ${CMAKE_CURRENT_BINARY_DIR}/geode)
+
+# Создание библиотеки мода
+# ВАЖНО: Если у тебя есть другие .cpp файлы (например, src/Hook.cpp), их нужно добавить сюда через пробел!
+add_library(${PROJECT_NAME} SHARED 
+    src/main.cpp
+)
+
+# Применение настроек Geode к твоему моду
 setup_geode_mod(${PROJECT_NAME})
